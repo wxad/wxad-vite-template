@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/wxad-favicon.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no viewport-fit=cover"
+    />
+    <meta name="renderer" content="webkit" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="apple-mobile-web-app-capable" content="no" />
+    <meta name="format-detection" content="telephone=no" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+      console.log(
+        "%c--- Handcrafted by Renqiang. and with 💚 by WeChat Ads Design ---",
+        "color: #fff; background: #07c160; padding: 8px;"
+      )
+
+      console.log("App 版本：" + globalThis.__VERSION__)
+
+      // 注入登录态
+      window.token = "{{token}}"
+      window.machine_key = "{{machine_key}}"
+
+      document.documentElement.style.setProperty(
+        "--app-width",
+        globalThis.__WIDTH__ + "px"
+      )
+      document.title = globalThis.__TITLE__
+
+      // 重置滚动条
+      if (history.scrollRestoration) {
+        history.scrollRestoration = "manual"
+      }
+
+      // 分享相关，写在这里是为了在页面加载完成前就能执行
+      var bindit = function () {
+        WeixinJSBridge.on("menu:share:appmessage", function () {
+          WeixinJSBridge.invoke(
+            "sendAppMessage",
+            {
+              img_url: globalThis.__SHARE_IMG__,
+              title: globalThis.__SHARE_TITLE__,
+              desc: globalThis.__SHARE_DESC__,
+              link: globalThis.__URL__,
+            },
+            function (e) {}
+          )
+        })
+        WeixinJSBridge.on("menu:share:timeline", function () {
+          WeixinJSBridge.invoke(
+            "shareTimeline",
+            {
+              img_url: globalThis.__SHARE_IMG__,
+              title: globalThis.__SHARE_TITLE__,
+              desc: globalThis.__SHARE_DESC__,
+              link: globalThis.__URL__,
+            },
+            function (e) {}
+          )
+        })
+        WeixinJSBridge.invoke("hideNavigationBarLoading")
+      }
+      void 0 === window.WeixinJSBridge
+        ? document.addEventListener("WeixinJSBridgeReady", bindit, !1)
+        : bindit()
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
