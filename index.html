@@ -20,7 +20,7 @@
         "color: #fff; background: #07c160; padding: 8px;"
       )
 
-      console.log("App 版本：" + globalThis.__VERSION__)
+      console.log("App 版本：" + import.meta.env.VERSION)
 
       // 注入登录态
       window.token = "{{token}}"
@@ -28,9 +28,9 @@
 
       document.documentElement.style.setProperty(
         "--app-width",
-        globalThis.__WIDTH__ + "px"
+        import.meta.env.WIDTH + "px"
       )
-      document.title = globalThis.__TITLE__
+      document.title = import.meta.env.TITLE
 
       // 重置滚动条
       if (history.scrollRestoration) {
@@ -43,10 +43,10 @@
           WeixinJSBridge.invoke(
             "sendAppMessage",
             {
-              img_url: globalThis.__SHARE_IMG__,
-              title: globalThis.__SHARE_TITLE__,
-              desc: globalThis.__SHARE_DESC__,
-              link: globalThis.__URL__,
+              img_url: import.meta.env.SHARE_IMG,
+              title: import.meta.env.SHARE_TITLE,
+              desc: import.meta.env.SHARE_DESC,
+              link: import.meta.env.URL,
             },
             function (e) {}
           )
@@ -55,10 +55,10 @@
           WeixinJSBridge.invoke(
             "shareTimeline",
             {
-              img_url: globalThis.__SHARE_IMG__,
-              title: globalThis.__SHARE_TITLE__,
-              desc: globalThis.__SHARE_DESC__,
-              link: globalThis.__URL__,
+              img_url: import.meta.env.SHARE_IMG,
+              title: import.meta.env.SHARE_TITLE,
+              desc: import.meta.env.SHARE_DESC,
+              link: import.meta.env.URL,
             },
             function (e) {}
           )

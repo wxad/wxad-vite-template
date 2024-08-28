@@ -20,12 +20,12 @@ const useExampleStore = create<ExampleState>()((set) => ({
       交互动画: ["framer-motion", "@use-gesture/react"],
     },
     环境变量: {
-      最终上线链接: ["__URL__"],
-      页面最大宽度: ["__WIDTH__"],
-      页面标题: ["__TITLE__"],
-      "朋友圈 & 会话分享标题": ["__SHARE_TITLE__"],
-      会话分享描述: ["__SHARE_DESC__"],
-      会话分享图片: ["__SHARE_IMG__"],
+      最终上线链接: ["URL"],
+      页面最大宽度: ["WIDTH"],
+      页面标题: ["TITLE"],
+      "朋友圈 & 会话分享标题": ["SHARE_TITLE"],
+      会话分享描述: ["SHARE_DESC"],
+      会话分享图片: ["SHARE_IMG"],
     },
     "CI/CD": {
       待补充: ["待补充"],
