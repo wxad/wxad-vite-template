@@ -18,6 +18,7 @@ const useExampleStore = create<ExampleState>()((set) => ({
       样式相关: ["sass", "clsx", "tailwindcss", "tailwind-merge"],
       状态管理: ["zustand"],
       交互动画: ["framer-motion", "@use-gesture/react"],
+      无头组件: ["shadcn/ui"],
     },
     环境变量: {
       最终上线链接: ["URL"],
