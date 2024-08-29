@@ -5,8 +5,7 @@
     <link rel="icon" type="image/png" href="/wxad-favicon.png" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no viewport-fit=cover"
-    />
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no viewport-fit=cover" />
     <meta name="renderer" content="webkit" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <meta name="apple-mobile-web-app-capable" content="no" />
@@ -26,11 +25,15 @@
       window.token = "{{token}}"
       window.machine_key = "{{machine_key}}"
 
-      document.documentElement.style.setProperty(
-        "--app-width",
-        import.meta.env.WIDTH + "px"
-      )
-      document.title = import.meta.env.TITLE
+      if (import.meta.env.WIDTH) {
+        document.documentElement.style.setProperty(
+          "--app-width",
+          import.meta.env.WIDTH + "px"
+        )
+      }
+      if (import.meta.env.TITLE) {
+        document.title = import.meta.env.TITLE
+      }
 
       // 重置滚动条
       if (history.scrollRestoration) {
