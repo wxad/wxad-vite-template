@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="./wxad-favicon.png" />
@@ -10,10 +10,24 @@
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <meta name="apple-mobile-web-app-capable" content="no" />
     <meta name="format-detection" content="telephone=no" />
-    <script type="module" crossorigin src="./assets/index-BnZdaF3e.js"></script>
+    <script type="module" crossorigin src="./assets/index-CHrxEpKo.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-1fIO_9T8.css">
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      console.log(
+        "%c--- Handcrafted by Renqiang. and with 💚 by WeChat Ads Design ---",
+        "color: #fff; background: #07c160; padding: 8px;"
+      )
+      // 注入登录态
+      window.token = "{{token}}"
+      window.machine_key = "{{machine_key}}"
+
+      // 重置滚动条
+      if (history.scrollRestoration) {
+        history.scrollRestoration = "manual"
+      }
+    </script>
   </body>
 </html>
