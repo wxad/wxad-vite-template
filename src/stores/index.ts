@@ -17,7 +17,7 @@ const useExampleStore = create<ExampleState>()((set) => ({
       项目基础: ["pnpm", "vite", "react"],
       样式相关: ["sass", "clsx", "tailwindcss", "tailwind-merge"],
       状态管理: ["zustand"],
-      交互动画: ["framer-motion", "@use-gesture/react"],
+      交互动画: ["motion", "@use-gesture/react"],
       无头组件: ["shadcn/ui"],
     },
     环境变量: {
