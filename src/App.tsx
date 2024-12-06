@@ -2,6 +2,20 @@ import clsx from "clsx"
 import Header from "@/components/Header"
 import { useExampleStore } from "@/stores"
 import { useRef } from "react"
+import { preload } from "react-dom"
+
+const TechItem = ({ tech }: { tech: string }) => {
+  // preload resources https://react.dev/blog/2024/12/05/react-19#support-for-preloading-resources
+  preload(
+    "https://wxa.wxs.qq.com/wxad-design/fonts/gilroy-semibold-webfont.ttf",
+    { as: "font" }
+  )
+  return (
+    <div className="flex items-center px-2 h-7 bg-neutral-100 rounded-md font-[gilroysemibold]">
+      {tech}
+    </div>
+  )
+}
 
 function App() {
   const techs = useExampleStore((s) => s.techs)
@@ -15,6 +29,7 @@ function App() {
         "border-x border-solid border-neutral-200"
       )}
     >
+      {/* ref as prop https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop */}
       <Header ref={headerRef} />
       <div className="px-6 pb-8">
         {Object.entries(techs).map(([key, value]) => (
@@ -27,12 +42,7 @@ function App() {
                     <div className="mb-1 text-sm font-medium">{k}</div>
                     <div className="flex flex-wrap gap-1 text-xs text-neutral-600">
                       {val.map((tech) => (
-                        <div
-                          key={tech}
-                          className="flex items-center px-2 h-7 bg-neutral-100 rounded-md"
-                        >
-                          {tech}
-                        </div>
+                        <TechItem key={tech} tech={tech} />
                       ))}
                     </div>
                   </div>
