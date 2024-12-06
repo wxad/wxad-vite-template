@@ -1,9 +1,11 @@
 import clsx from "clsx"
 import Header from "@/components/Header"
 import { useExampleStore } from "@/stores"
+import { useRef } from "react"
 
 function App() {
   const techs = useExampleStore((s) => s.techs)
+  const headerRef = useRef<HTMLDivElement>(null)
 
   return (
     <div
@@ -13,7 +15,7 @@ function App() {
         "border-x border-solid border-neutral-200"
       )}
     >
-      <Header />
+      <Header ref={headerRef} />
       <div className="px-6 pb-8">
         {Object.entries(techs).map(([key, value]) => (
           <div key={key} className="mt-8">
