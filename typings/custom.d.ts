@@ -1,12 +1,11 @@
 declare module "*.js"
 
-// 扩充类型
-// import.meta.env.VERSION
-
 declare interface IBaseObject {
-  [key: string]: unknown
+  [key: string]: any
 }
 
+// 扩充类型
+// import.meta.env.VERSION
 declare interface ImportMetaEnv {
   // 版本号
   VERSION: string
@@ -32,9 +31,8 @@ declare interface Window {
       cb?: (res?: IBaseObject) => void
     ) => void
   }
+  wx: IBaseObject
   // 登录态相关
   token: string
   machine_key: string
 }
-
-export {}
