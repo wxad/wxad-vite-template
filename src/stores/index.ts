@@ -6,18 +6,19 @@ interface Techs {
   }
 }
 
-interface ExampleState {
+interface State {
   techs: Techs
   setTechs: (techs: Techs) => void
 }
 
-const useExampleStore = create<ExampleState>()((set) => ({
+const useStore = create<State>()((set) => ({
   techs: {
     技术选型: {
       项目基础: ["pnpm", "vite", "react"],
       样式相关: ["sass", "clsx", "tailwindcss", "tailwind-merge"],
       状态管理: ["zustand"],
       交互动画: ["motion", "@use-gesture/react"],
+      文档生成: ["@mdx-js/react"],
       无头组件: ["shadcn/ui"],
       性能分析: ["react-scan"]
     },
@@ -29,11 +30,12 @@ const useExampleStore = create<ExampleState>()((set) => ({
       会话分享描述: ["SHARE_DESC"],
       会话分享图片: ["SHARE_IMG"],
     },
-    "CI/CD": {
-      待补充: ["待补充"],
+    "开发流程": {
+      数据统计: ["beacon"],
+      流水线: ["BK-CI", "rainbow"],
     },
   },
   setTechs: (techs) => set({ techs }),
 }))
 
-export { useExampleStore }
+export { useStore }

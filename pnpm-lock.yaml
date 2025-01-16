@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@tencent/wxad-beacon':
+        specifier: ^0.1.4
+        version: 0.1.4
       '@use-gesture/react':
         specifier: ^10.3.1
         version: 10.3.1(react@19.0.0)
@@ -584,6 +587,25 @@ packages:
 
   '@swc/types@0.1.17':
     resolution: {integrity: sha512-V5gRru+aD8YVyCOMAjMpWR1Ui577DD5KSJsHP8RAxopAH22jFz6GZd/qxqjO6MJHQhcsjvjOFXyDhyLQUnMveQ==}
+
+  '@tencent/beacon-main-core@2.1.7':
+    resolution: {integrity: sha512-j5AQie9RRQcqBY1AVrNFcIUrRofZUCi6RTvMrz1f5cYlNoi5ELnQL/Ys+JAaTmNeXkZfNf7+a84bvLX4cVM9gA==, tarball: https://mirrors.tencent.com/npm/@tencent/beacon-main-core/-/@tencent/beacon-main-core-2.1.7.tgz}
+
+  '@tencent/beacon-web-sdk@4.5.30':
+    resolution: {integrity: sha512-oOS9dAPAOTwTE3/z56DNgdIAVHetHSiPs/y/5uHDSFe4z868kvOpxvpclIwGypQtJOR24x3VdjdvTgebRyVtdQ==, tarball: https://mirrors.tencent.com/npm/@tencent/beacon-web-sdk/-/@tencent/beacon-web-sdk-4.5.30.tgz}
+
+  '@tencent/ovb-indexed-db@1.2.4':
+    resolution: {integrity: sha512-+zGOdTRb/v3DWCHemgFn55w+zmtE2oxSqw7hR85u/xRmmHaT15MWEmViFCljCqKl4hCXfu4CoduFc7b/y+LwUQ==, tarball: https://mirrors.tencent.com/npm/@tencent/ovb-indexed-db/-/@tencent/ovb-indexed-db-1.2.4.tgz}
+
+  '@tencent/ovb-request@1.1.23':
+    resolution: {integrity: sha512-ULLW3RMwzhxAU+E9aiLGqQ3gQ0wvtI6vPXX8xmyIDLjzUIgWHydh9oeIjyHZI3t7LQCaddtYfpFJwjfS3BPXqA==, tarball: https://mirrors.tencent.com/npm/@tencent/ovb-request/-/@tencent/ovb-request-1.1.23.tgz}
+
+  '@tencent/ovb-utils@1.1.7':
+    resolution: {integrity: sha512-7UwV36/6iUSspayCZPzej4xN14NvWN/cS9iH64Ai13Z4og11kSamPdJ4PTgTD7lqiY2MWyA0QxNo8hmcJ7yCKw==, tarball: https://mirrors.tencent.com/npm/@tencent/ovb-utils/-/@tencent/ovb-utils-1.1.7.tgz}
+
+  '@tencent/wxad-beacon@0.1.4':
+    resolution: {integrity: sha512-FNc0DUaUJWTcA9R3mQCI38JrsSCPXF+CEnFcsxMRIp4kxCGgvdy/7m7G6wdsJt4wTJpODg9R7lCttCpW1KNT6w==, tarball: https://mirrors.tencent.com/npm/@tencent/wxad-beacon/-/@tencent/wxad-beacon-0.1.4.tgz}
+    engines: {node: '>=10'}
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
@@ -1878,6 +1900,26 @@ snapshots:
   '@swc/types@0.1.17':
     dependencies:
       '@swc/counter': 0.1.3
+
+  '@tencent/beacon-main-core@2.1.7': {}
+
+  '@tencent/beacon-web-sdk@4.5.30':
+    dependencies:
+      '@tencent/beacon-main-core': 2.1.7
+      '@tencent/ovb-indexed-db': 1.2.4
+      '@tencent/ovb-request': 1.1.23
+
+  '@tencent/ovb-indexed-db@1.2.4': {}
+
+  '@tencent/ovb-request@1.1.23':
+    dependencies:
+      '@tencent/ovb-utils': 1.1.7
+
+  '@tencent/ovb-utils@1.1.7': {}
+
+  '@tencent/wxad-beacon@0.1.4':
+    dependencies:
+      '@tencent/beacon-web-sdk': 4.5.30
 
   '@types/estree@1.0.6': {}
 

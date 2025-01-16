@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import Header from "@/components/Header"
-import { useExampleStore } from "@/stores"
+import { useStore } from "@/stores"
 import { useRef } from "react"
 import { preload } from "react-dom"
 
@@ -18,7 +18,7 @@ const TechItem = ({ tech }: { tech: string }) => {
 }
 
 function App() {
-  const techs = useExampleStore((s) => s.techs)
+  const techs = useStore((s) => s.techs)
   const headerRef = useRef<HTMLDivElement>(null)
 
   return (
