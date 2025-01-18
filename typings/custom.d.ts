@@ -35,4 +35,28 @@ declare interface Window {
   // 登录态相关
   token: string
   machine_key: string
+
+  // 20250118 学到了
+  __wxWebEnv: {
+    getEnv: () => ({
+      // iOS & Android，我的 iOS 1，Android 是 2
+      fontLevel: number
+      // iOS & Android，我调小了字体就会是 94，默认 100
+      fontScale: number
+      // iOS & Android，微信头高度，我的是 91
+      normalTopInset: number
+      // Android 独有
+      immersiveMode: 0 | 1
+      // Android 独有
+      childView: boolean
+      // Android 独有
+      isPreload: boolean
+      // Android 独有，视频号半屏页中有值，在做置底按钮时会用到
+      maxHeight: number
+      // Android 独有，视频号半屏页中有值，在做置底按钮时会用到
+      peekHeight: number
+      // Android 独有，视频号半屏页中有值，在做置底按钮时会用到
+      currHeight: number
+    })
+  }
 }
