@@ -15,7 +15,7 @@ const useStore = create<State>()((set) => ({
   techs: {
     技术选型: {
       项目基础: ["pnpm", "vite", "react"],
-      样式相关: ["sass", "clsx", "tailwindcss", "tailwind-merge"],
+      样式相关: ["SCSS", "clsx", "tailwind-merge", "tailwindcss@3 (兼容性考虑)"],
       状态管理: ["zustand"],
       交互动画: ["motion", "@use-gesture/react"],
       文档生成: ["@mdx-js/react"],
