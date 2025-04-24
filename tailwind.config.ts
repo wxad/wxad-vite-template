@@ -1,79 +1,111 @@
 import type { Config } from "tailwindcss"
-import tailwindcssAnimate from "tailwindcss-animate";
+
+const spacing = {}
+for (let index = 0; index <= 500; index += 1) {
+  spacing[index] = `${index}${index === 0 ? "" : "px"}`
+}
+
+const colors = {
+  transparent: "transparent",
+  current: "currentColor",
+  black: "#000",
+  white: "#fff",
+  green: "#07c160",
+  orange: "#eda20c",
+  blue: "#296bef",
+  red: "#d9514c",
+  gray: {
+    0: "#ffffff",
+    50: "rgba(33, 34, 38, 0.03)",
+    100: "rgba(33, 34, 38, 0.05)",
+    200: "rgba(0, 0, 0, 0.08)",
+    300: "rgba(32, 33, 38, 0.1)",
+    400: "rgba(32, 33, 38, 0.12)",
+    500: "rgba(32, 33, 38, 0.16)",
+    600: "rgba(32, 33, 38, 0.22)",
+    700: "rgba(32, 33, 38, 0.36)",
+    800: "rgba(32, 33, 38, 0.58)",
+    850: "rgba(32, 33, 38, 0.72)",
+    900: "rgba(32, 33, 38, 0.88)",
+    950: "rgba(32, 33, 38, 0.98)",
+  },
+  primary: {
+    1: "#eff4ff",
+    2: "#d1e0ff",
+    3: "#b4cdff",
+    4: "#96b9ff",
+    5: "#78a5ff",
+    6: "#5b92ff",
+    7: "#296bef",
+    8: "#2966df",
+    9: "#144dbe",
+    10: "#00359e",
+  }
+}
 
 const config = {
   darkMode: ["class"],
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
-      colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
+      spacing,
+    },
+    colors,
+    borderRadius: {
+      none: "0px",
+      2: "2px",
+      4: "4px",
+      6: "6px",
+      8: "8px",
+      10: "10px",
+      12: "12px",
+      16: "16px",
+      20: "20px",
+      24: "24px",
+      52: "52px",
+      full: "9999px",
+    },
+    fontFamily: {},
+    fontWeight: {
+      normal: "400",
+      medium: "500",
+      semibold: "600",
+      bold: "700",
+    },
+    keyframes: {},
+    letterSpacing: {
+      0: "0",
+      0.5: "0.5px",
+      1: "1px",
+      2: "2px",
+      3: "3px",
+      4: "4px",
+    },
+    lineHeight: {
+      none: "1",
+      12: "12px",
+      14: "14px",
+      16: "16px",
+      17: "17px",
+      18: "18px",
+      20: "20px",
+      24: "24px",
+      25: "25px",
+      28: "28px",
+      32: "32px",
+      36: "36px",
+      40: "40px",
+      42: "42px",
+      48: "48px",
+      52: "52px",
+      64: "64px",
     },
   },
   corePlugins: {
     preflight: false,
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [],
 } satisfies Config
 
 export default config

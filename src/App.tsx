@@ -11,7 +11,7 @@ const TechItem = ({ tech }: { tech: string }) => {
     { as: "font" }
   )
   return (
-    <div className="flex items-center px-2 h-7 bg-neutral-100 rounded-md font-[gilroysemibold]">
+    <div className="flex items-center px-8 h-28 bg-gray-100 rounded-6 font-[gilroysemibold]">
       {tech}
     </div>
   )
@@ -25,22 +25,22 @@ function App() {
     <div
       className={clsx(
         "min-h-screen",
-        "bg-neutral-100",
-        "border-x border-solid border-neutral-200"
+        "bg-gray-100",
+        "border-x border-solid border-gray-200"
       )}
     >
       {/* ref as prop https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop */}
       <Header ref={headerRef} />
-      <div className="px-6 pb-8">
+      <div className="px-24 pb-32">
         {Object.entries(techs).map(([key, value]) => (
-          <div key={key} className="mt-8">
-            <div className="mb-3 text-base font-bold">{key}</div>
-            <div className="p-5 bg-white rounded-lg">
-              <div className="grid grid-cols-2 gap-y-3">
+          <div key={key} className="mt-32">
+            <div className="mb-12 text-base font-bold">{key}</div>
+            <div className="p-20 bg-white rounded-8">
+              <div className="grid grid-cols-2 gap-y-12">
                 {Object.entries(value).map(([k, val]) => (
                   <div key={k}>
-                    <div className="mb-1 text-sm font-medium">{k}</div>
-                    <div className="flex flex-wrap gap-1 text-xs text-neutral-600">
+                    <div className="mb-4 text-sm font-medium">{k}</div>
+                    <div className="flex flex-wrap gap-4 text-xs text-gray-800">
                       {val.map((tech) => (
                         <TechItem key={tech} tech={tech} />
                       ))}
