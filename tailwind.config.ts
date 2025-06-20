@@ -8,6 +8,7 @@ for (let index = 0; index <= 500; index += 1) {
 const colors = {
   transparent: "transparent",
   current: "currentColor",
+  brand: "#296bef",
   black: "#000",
   white: "#fff",
   green: "#07c160",
@@ -44,7 +45,7 @@ const colors = {
 }
 
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   prefix: "",
   theme: {
