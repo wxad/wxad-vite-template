@@ -1,0 +1,127 @@
+---
+name: making-fluid-interfaces 制作流畅界面
+description: 制作流畅界面时，你需要遵循的原则。
+---
+
+# 品质
+
+## 流畅 - 保持高帧率与实时响应的界面
+
+首先关注界面是否不卡顿，你可以在下面“性能”部分找到更多实际建议，其次保证交互可被打断。界面应响应操作，而不是反过来操作需要等待界面。
+
+## 隐喻 - 用现实的规则，使界面易用而熟悉
+
+关注元素间的关系是否遵循空间一致性，及堆叠、翻转等表现是否符合认知。在此基础上模拟物理表现的自然交互，如弹性、碰撞、速度、材质。
+
+## 编排 - 元素关系和谐、有逻辑与完整叙述
+
+当多个元素变化时，关注它们的层级、顺序、路径是否协调。同样地，当一个元素有多个属性变化时，关注它们同步变化时是否协调。
+
+## 克制 - 元素运动范围适当、不增加认知负荷
+
+首先关注元素自身的变化不应太夸张和复杂，如路径是否足够简化。其次关注人体工学，在设计时实际地操作页面，看看热点区域是否能够轻松触及。
+
+## 简单 - 简化用户操作，继而放大它的感受
+
+挖掘一种简单操作背后所携带的参数。如通过单指滑动而速度不同，元素就能有不同程度的响应。“简单”的重点实际在于“放大”。
+
+## 启发 - 好的交互体验，能启发更广的应用场景
+
+一个界面的背后可能对应的是一大类交互形式，好的交互体验还能为团队打开更大的启发。
+
+# 性能 Optimization
+
+- **重要：尽量使用 GPU 加速的 CSS 动画，而不是 JS API**。除非你在制作一种交互动画。  
+  _我的经验是 CSS `transition` 一般不需要优化，在低端机型上表现也非常好，而 JS 差距非常大。_  
+  _如果你只是需要一个模拟弹簧的曲线而 `cubic-bezier()` 满足不了，那么你可以使用 `linear()` 或者依赖 [`motion` 的 `spring` 方法](https://examples.motion.dev/react/css-spring)。你仍然不需要 JS 动画。_  
+  _总之除非你在制作交互动画，一般并不需要选择 `motion` 这样的库。_
+
+- 有意识地减少重排重绘，尽量且真的尽力用 `transform` 替代 `width` / `height`。  
+  _有时候尺寸变化用 `transform` 是很麻烦，还要改变其他元素的位置。但这是值得的。_
+
+- 有意识地减少动画的元素数量，将相同的多个元素安排在同一个父级上。  
+  _和上一条一样，就像过你手的图片都要压缩，养成这个习惯。_
+
+- 视频一定要经过标准化压缩，否则在 WebView 初始化时会耗费很多时间，推荐使用 `handbrake` 压，恒定质量视情况在 `15` 至 `25` 之间。
+
+- 自动播放视频后，要用 `Intersection Observer` 在它移出屏幕后暂停、甚至移除，循环动画同理。
+
+- `will-change` 在 Android 设备上的少许情况确实有用，但一般来说没有用。将其作为优化帧数的最后手段。
+  _一般来说 CSS 动画没有什么问题，有问题的是 JS 动画。另外很多人建议不要滥用 `translateZ(0)`，从我的个人经验来看，非常滥用也无事发生。_
+
+- 元素动画不要依赖 React 状态，而是操作 DOM 或使用 `motion` 这样的库。
+  _如果是简单的状态 toggle，或是和逻辑相关的状态是适合依赖 React 状态驱动的。  
+  不要觉得写 `dom.style.transform` 很丑，动画复杂起来怎么写都丑。_
+
+- `filter` 的动画非常消耗性能，`blur` 是很优雅，但是大部分情况我都删了。  
+  _有时候我会判断如果是 Android，则删除..._
+
+- SVG 如果带有 `drop-shadow` 或 `blur` 则小心使用，在动画中非常可能造成卡顿。不要以为 SVG 方便就是万能的就乱切。  
+  _这点也挺重要的，如果 SVG 切出来一大堆 `path` 以外的标签，你就要小心了。_
+
+# 动画 Animation
+
+- 伴随不透明度的缩放动画（如 Dialog）不要以 `0` 作为开始和结束的值，一般保持在 `0.5` 以上。
+  _用户很容易注意到元素从一个点出现或是被吸进了屏幕的一个点。这是不必要的。_
+
+- 按钮 `active` 如果要缩小，一般 `0.96` 甚至更大就够了；如果是放大，一般 `1.04` 就够了。
+
+- 添加或删除的元素自身不应该有任何尺寸上的变化，否则将会是一种视觉上的干扰。
+
+- 不透明度与位移应该是不同步的。具体而言，在添加时，透明度应该是后变化的；在删除时，透明度应该是先变化的；[参考](https://wxad.design/abc/functional-motion#%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4%E7%9A%84%E7%BB%86%E8%8A%82%EF%BC%9Aalert-/-tag)。
+
+- 小心地尝试带回弹效果的动画，除非你想要奖励动量（momentum）。[Start simple, not springy](https://youtu.be/gttSJA-kDmQ?t=2173)。  
+  _比如一个卡片既可以点击关闭，又可以通过手势关闭。那么你可以仅给后者加入回弹。这就是 [奖励动量](https://wxad.design/abc/making-fluid-interfaces#%E5%93%8D%E5%BA%94%E9%80%9F%E5%BA%A6%EF%BC%8C%E4%BF%9D%E6%8C%81%E6%83%AF%E6%80%A7%EF%BC%8C%E5%A5%96%E5%8A%B1%E5%8A%A8%E9%87%8F)。_
+
+- 不要使用或批判地看待类 `ease-in` 曲线，交互动画和非交互（视觉）动画是有差异的。  
+  _为什么我关闭一个弹窗，要先慢后快呢？一辆汽车开出我的视野，它是先慢后快的，但我关闭弹窗应该越快越好。区别是我不再是被动的观看者，而是主动的操作者。  
+  `ease-in` 的另一个“问题”在于：如果你的动画基于弹簧模型，那么就不可能模拟出一个 `ease-in` 的表现（即便 velocity 为负值）。你可以观察一下 iOS 的表现。我的建议是只使用 `ease-out`。_
+
+- 同时考虑曲线和时间，抛开一个谈另一个是没有意义的，重要的是保证动画可 [被打断或跳过](https://wxad.design/abc/making-fluid-interfaces#%E5%8F%AF%E6%89%93%E6%96%AD%EF%BC%8C%E5%8F%AF%E5%8F%8D%E6%82%94)。  
+  _“动效必须 `200ms` 以下”这种说法都没有意义，抛开曲线表现差异很大的。我经常用 `0.7s` 的 `transition`。  
+  明白参数本身并不重要，时间只是物体运动的结果。_
+
+- `transform` 变化可能遇到 [毛边问题](https://wxa.wxs.qq.com/wxad-design/yijie/431737016662_.pic.webp)（jagged edges），用 `outline: 1px solid transparent` 解决。
+  _但是，会让内部元素稍微糊一点点，你不说设计师是不会发现的。这个方法类似于解决 `linear-gradient` 两个纯色切换的时候边缘锯齿的问题，也是加个 1px。_
+
+- `border-radius` 曲率不连续，特别是在 `rotate3d` 时我发现非常明显，可以用 [这个库](https://wxad.design/react-squircle/) 试试。
+
+# 交互 Interactivity
+
+- 交互元素应禁止 `user-select`，避免选中。  
+  _我的经验是即便禁止了，在微信 Webview 中也低概率触发一些奇怪的“搜一搜”逻辑。_
+
+- 纯装饰元素（如渐变、蒙层）应禁用 `pointer-events` 或 `visibility` 以免劫持事件。  
+  _注意子元素如果设置了这两个属性，如 `visibility: visible`，则会覆盖父元素的表现。_
+
+- 如果是做双端响应式的页面，把 `hover` 都改成 `@media(hover: hover)`，否则在移动端也会触发。
+
+- 如果 `:active` 在移动端不生效，试试在 `body` 上增加 `ontouchstart=""`。
+
+- 为了保证刷新页面后滚动条总是能在顶部，需要 JS 设置 `history.scrollRestoration = "manual"`。
+
+- 列表中的交互元素之间避免交互死区（即便存在视觉上的间隔），增加它们的 padding。  
+  _应该像 [这样](https://wxa.wxs.qq.com/wxad-design/yijie/odc-date-range-picker.mp4)，而不是 [这样](https://wxa.wxs.qq.com/wxad-design/yijie/❌odc-date-range-picker.mp4)。_
+
+- `font-weight` 不要加过渡，只有可变字体支持。否则会造成字重的跳动，[很不优雅](https://wxa.wxs.qq.com/wxad-design/yijie/font-weight-transition.mp4)。
+
+# 界面 Interface
+
+- 开启 `-webkit-font-smoothing: antialiased` 和 `text-rendering: optimizeLegibility` 以提高字体的可读性（legibility）。
+
+- 开启 `-webkit-text-size-adjust: 100%`，防止 iOS 横向模式在页面初始化时调整文本大小，微信 Webview 就有这样的问题。
+
+- 在做响应式页面时，使用 `clamp` 让字体和尺寸流动，以在所有设备下尽可能地合适，参考 [这个工具](https://wxad.design/flow/)。
+
+# 除虫 Debugging
+
+- iOS Safari 可能不显示 `background` 渐变的元素，可尝试 `translateZ(0)` 或 `backface-visibility: hidden` 修复。  
+  _大力出奇迹了属于是，Safari 真有你的。_
+
+- iOS Safari 可能对 `overflow: hidden` 失效，可尝试 `mask-image: linear-gradient(transparent, transparent)` 修复。
+
+- iOS Safari 低版本不支持 `gap` 属性，使用 `margin` 代替。
+
+- iOS Safari 低版本 `linear-gradient(transparent)` 会变为黑色过渡，把 `transparent` 改为相邻颜色的 0%。
+
+- iOS Safari 低版本不支持 `background-clip`，加上 `-webkit-` 前缀。
