@@ -1,18 +1,15 @@
-import logo from "@/assets/wxad-design.svg"
+import logo from '@/assets/wxad-design.svg';
 
 export interface IHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  ref: React.RefObject<HTMLDivElement | null>
+  ref: React.RefObject<HTMLDivElement | null>;
 }
 
 const Header: React.FC<IHeaderProps> = ({ ref }) => {
   return (
-    <div
-      ref={ref}
-      className="sticky top-0 z-50 bg-white border-b border-solid border-gray-200"
-    >
-      <div className="px-24 h-64 mx-auto flex items-center justify-between">
-        <div className="flex gap-8 items-center font-semibold">
-          <svg className="size-24" viewBox="0 0 24 24">
+    <div ref={ref} className="sticky top-0 z-50 bg-white border-b border-solid border-neutral-200">
+      <div className="px-6 h-16 mx-auto flex items-center justify-between">
+        <div className="flex gap-2 items-center font-semibold">
+          <svg className="size-6" viewBox="0 0 24 24">
             <g fill="none" stroke="currentColor" strokeWidth="1.5">
               <path
                 strokeLinecap="round"
@@ -24,11 +21,11 @@ const Header: React.FC<IHeaderProps> = ({ ref }) => {
           微信广告移动端模板
         </div>
         <a href="https://wxad.design">
-          <img className="block w-96" src={logo} alt="wxad.design" />
+          <img className="block w-24" src={logo} alt="wxad.design" />
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
