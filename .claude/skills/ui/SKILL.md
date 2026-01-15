@@ -1,7 +1,8 @@
 ---
-name: ui-skills
+
+## name: ui-skills
+
 description: Opinionated constraints for building better interfaces with agents.
----
 
 # UI Skills
 
@@ -66,27 +67,19 @@ Opinionated constraints for building better interfaces with agents.
 ## Debug
 
 - iOS Safari may not display `background` gradient elements, try `translateZ(0)` or `backface-visibility: hidden` to fix.
-
 - iOS Safari may not respect `overflow: hidden`, try `mask-image: linear-gradient(transparent, transparent)` to fix.
-
 - Older iOS Safari versions don't support the `gap` property, use `margin` instead.
-
 - Older iOS Safari versions turn `linear-gradient(transparent)` black, change `transparent` to 0% of the adjacent color.
-
 - Older iOS Safari versions don't support `background-clip`, add the `-webkit-` prefix.
 
 ## Tricks
 
 - For autoplay video or audio, play it in the `getNetworkType` callback. It just works.  
-  _Additional required attribute set: `x-webkit-airplay="true"`, `webkit-playsinline="true"`, `playsInline`._
-
+*Additional required attribute set: `x-webkit-airplay="true"`, `webkit-playsinline="true"`, `playsInline`.*
 - To track data when Webview closes, use the `pagehide` event on Android and the special API `on('reportOnLeaveForMP', () => {})` on iOS.
-
 - To implement header color transitions, you must set transitions via JavaScript by repeatedly calling `setNavigationBarColor`.  
-  _If other transitions need to sync with header color changes, abandon CSS `transition` and use this method uniformly. Note that it cannot guarantee complete synchronization between WeChat API and DOM changes._
-
+*If other transitions need to sync with header color changes, abandon CSS `transition` and use this method uniformly. Note that it cannot guarantee complete synchronization between WeChat API and DOM changes.*
 - WeChat Webview may crash when requesting large amounts of sprite sheet images; batch loading is recommended. Also, avoid using `lottie` for sprite animation; use [this](https://github.com/wxad/react-sequence-frame-player) instead.
-
 - `window.__wxWebEnv.getEnv()` can retrieve the user's font size settings and WeChat header height information. For specific types, [see here](https://github.com/wxad/wxad-vite-template/blob/main/typings/custom.d.ts#L40).
-
 - Webview height changes in WeChat Video Number half-screen pages differ between Android and iOS. Android requires using the `onVisibleHeightChange` API, which is quite cumbersome.
+
