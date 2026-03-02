@@ -80,10 +80,9 @@ export const getUrlParams = (): { [key: string]: string } => {
   const search = location.search.slice(1)
   const arr = search.split("&")
   const result = {} as IBaseObject
-  let temp = [] as string[]
 
   for (let i = 0, l = arr.length; i < l; i++) {
-    temp = arr[i].split("=")
+    const temp = arr[i].split("=")
     result[temp[0]] = decodeURIComponent(temp[1])
   }
   return result
