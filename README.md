@@ -46,13 +46,20 @@ preload(
 1. 创建 / 更新 PR 后，GitHub Action 会自动构建并部署到 `gh-pages` 分支的 `previews/pr-<编号>` 目录。
 2. 机器人会在 PR 评论区自动发布（并更新）预览地址。
 
-预览链接格式：
+预览链接格式（会自动匹配仓库当前 Pages 域名，包括自定义域名）：
 
 ```txt
-https://<owner>.github.io/<repo>/previews/pr-<编号>/
+<你的 Pages 站点地址>/previews/pr-<编号>/
 ```
 
-> 如果你的仓库是 `owner.github.io` 这类用户主页仓库，则链接为：
-> `https://<owner>.github.io/previews/pr-<编号>/`
+### 从 `main /docs` 迁移到 `gh-pages`（不影响线上）
 
-首次使用前请在仓库设置中开启 GitHub Pages（Source 选 `Deploy from a branch`，分支选 `gh-pages`）。
+如果你当前 Pages Source 是 `main /docs`（线上正在使用），按下面步骤切换：
+
+1. 合并本仓库的 workflow 改动到 `main`。
+2. 等待 `Deploy Pages` 工作流在 `main` 跑完一次（它会把正式站点部署到 `gh-pages` 根目录）。
+3. 到仓库 `Settings -> Pages`，把 Source 改为：
+   - `Deploy from a branch`
+   - Branch: `gh-pages`
+   - Folder: `/(root)`
+4. 保存后访问线上地址确认；之后 PR 预览链接即可生效。

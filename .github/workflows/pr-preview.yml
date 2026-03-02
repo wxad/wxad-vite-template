@@ -56,10 +56,17 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const prNumber = context.payload.pull_request.number;
-            const isUserPageRepo = repo.toLowerCase() === `${owner.toLowerCase()}.github.io`;
-            const previewUrl = isUserPageRepo
-              ? `https://${owner}.github.io/previews/pr-${prNumber}/`
-              : `https://${owner}.github.io/${repo}/previews/pr-${prNumber}/`;
+            let pagesBaseUrl = "";
+            try {
+              const { data: pages } = await github.rest.repos.getPages({ owner, repo });
+              pagesBaseUrl = (pages.html_url || "").replace(/\/$/, "");
+            } catch (error) {
+              const isUserPageRepo = repo.toLowerCase() === `${owner.toLowerCase()}.github.io`;
+              pagesBaseUrl = isUserPageRepo
+                ? `https://${owner}.github.io`
+                : `https://${owner}.github.io/${repo}`;
+            }
+            const previewUrl = `${pagesBaseUrl}/previews/pr-${prNumber}/`;
 
             const marker = "<!-- pr-preview-link -->";
             const body = `${marker}
