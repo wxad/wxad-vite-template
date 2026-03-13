@@ -14,7 +14,7 @@ interface State {
 const useStore = create<State>()((set) => ({
   techs: {
     'AI 辅助': {
-      '流畅界面规范': ['.cursor/rules', '.claude/skills'],
+      '流畅界面规范': ['.cursor/skills', '.claude/skills'],
     },
     技术选型: {
       项目基础: ["pnpm", "rolldown-vite", "react"],

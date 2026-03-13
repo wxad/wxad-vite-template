@@ -6,9 +6,9 @@ import { preload } from 'react-dom';
 
 const TechItem = ({ tech }: { tech: string }) => {
   // preload resources https://react.dev/blog/2024/12/05/react-19#support-for-preloading-resources
-  preload('https://wxa.wxs.qq.com/wxad-design/fonts/gilroy-semibold-webfont.ttf', { as: 'font' });
+  preload('https://wxa.wxs.qq.com/wxad-design/fonts/1773377484406-BerkeleyMono-Regular.ttf', { as: 'font' });
   return (
-    <div className="flex items-center px-2 h-7 bg-neutral-100 rounded-md font-[gilroysemibold]">
+    <div className="flex items-center px-2 h-7 bg-neutral-100 rounded-md font-['Berkeley_Mono']">
       {tech}
     </div>
   );
@@ -33,7 +33,7 @@ function App() {
                 {Object.entries(value).map(([k, val]) => (
                   <div key={k}>
                     <div className="mb-1 text-sm font-medium">{k}</div>
-                    <div className="flex flex-wrap gap-1 text-xs text-neutral-800">
+                    <div className="flex flex-wrap gap-1 text-[10px] text-neutral-800">
                       {val.map((tech) => (
                         <TechItem key={tech} tech={tech} />
                       ))}

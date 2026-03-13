@@ -24,7 +24,7 @@ export interface IHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 ```jsx
 // App.tsx
 preload(
-  "https://wxa.wxs.qq.com/wxad-design/fonts/gilroy-semibold-webfont.ttf",
+  "https://wxa.wxs.qq.com/wxad-design/fonts/1773377484406-BerkeleyMono-Regular.ttf",
   { as: "font" }
 )
 ```
