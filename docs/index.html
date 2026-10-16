@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
+<html lang="zh-cmn-Hans" translate="no">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="./wxad-favicon.png" />
@@ -11,14 +11,12 @@
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <meta name="apple-mobile-web-app-capable" content="no" />
     <meta name="format-detection" content="telephone=no" />
-    <script type="module" crossorigin src="./assets/index-BRNwg0Fc.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-zSpHUIH8.css">
+    <script type="module" crossorigin src="./assets/index-vAyx-1ky.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DOB2r5r_.css">
   </head>
-  <body>
+  <body class="scrollbar-custom">
     <div id="root"></div>
-    <script
-      src="//unpkg.com/react-scan/dist/auto.global.js"
-    />
+    <script src="//unpkg.com/react-scan/dist/auto.global.js"></script>
     <script>
       console.log(
         "%c--- Handcrafted by Renqiang. and with 💚 by WeChat Ads Design ---",
@@ -32,6 +30,113 @@
       if (history.scrollRestoration) {
         history.scrollRestoration = "manual"
       }
+
+      // CSS @layer 能力探针。不发请求；接入 beacon 见 MIGRATION.md。
+      ;(function () {
+        var ua = navigator.userAgent || ""
+        var supportsLayerApi = false
+        try {
+          supportsLayerApi = !!(
+            window.CSS &&
+            CSS.supports &&
+            CSS.supports("@layer", "")
+          )
+        } catch (err) {
+          supportsLayerApi = false
+        }
+
+        var supportsLayer = null
+        try {
+          var style = document.createElement("style")
+          style.setAttribute("data-wxad-layer-probe", "")
+          style.textContent =
+            "@layer wxadProbe { #wxad-layer-probe { --wxad-layer-probe: 1 } }"
+          document.head.appendChild(style)
+          var el = document.createElement("div")
+          el.id = "wxad-layer-probe"
+          document.documentElement.appendChild(el)
+          supportsLayer =
+            getComputedStyle(el).getPropertyValue("--wxad-layer-probe").trim() ===
+            "1"
+          el.remove()
+          style.remove()
+        } catch (err) {
+          supportsLayer = null
+        }
+
+        function match(re) {
+          var found = ua.match(re)
+          return found ? found[1] : null
+        }
+
+        var xweb = match(/XWEB\/(\d+)/i)
+        var chromeRaw = match(/Chrome\/(\d+)/i)
+        var chrome = chromeRaw ? parseInt(chromeRaw, 10) : null
+        var iosMatch = ua.match(
+          /(?:iPhone|CPU) OS (\d+)[_.](\d+)(?:[_.](\d+))?/i
+        )
+        var androidMatch = ua.match(/Android (\d+)(?:\.(\d+))?(?:\.(\d+))?/i)
+        var os = iosMatch
+          ? {
+              name: "ios",
+              major: parseInt(iosMatch[1], 10),
+              minor: parseInt(iosMatch[2], 10),
+              patch: parseInt(iosMatch[3] || "0", 10),
+            }
+          : androidMatch
+            ? {
+                name: "android",
+                major: parseInt(androidMatch[1], 10),
+                minor: parseInt(androidMatch[2] || "0", 10),
+                patch: parseInt(androidMatch[3] || "0", 10),
+              }
+            : { name: "other", major: null, minor: null, patch: null }
+
+        var iosBelowLayer =
+          os.name === "ios" &&
+          (os.major < 15 || (os.major === 15 && os.minor < 4))
+        var chromeBelowLayer = chrome !== null && chrome < 99
+        var layerGap =
+          supportsLayer === false || iosBelowLayer || chromeBelowLayer
+        var iosCosmetic =
+          os.name === "ios" &&
+          ((os.major === 15 && os.minor >= 4) ||
+            (os.major === 16 && os.minor < 4))
+        var chromeCosmetic = chrome !== null && chrome >= 99 && chrome < 111
+        var risk = layerGap
+          ? "unsupported-layer"
+          : iosCosmetic || chromeCosmetic
+            ? "cosmetic"
+            : "ok"
+
+        var payload = {
+          supportsLayer: supportsLayer,
+          supportsLayerApi: supportsLayerApi,
+          risk: risk,
+          xweb: xweb,
+          chrome: chrome,
+          os: os,
+          ua: ua,
+        }
+
+        window.__WXAD_CSS_COMPAT__ = payload
+        document.documentElement.setAttribute("data-wxad-css-risk", payload.risk)
+        console.info("[wxad-css-compat]", payload)
+
+        if (typeof window.__wxadReportCssCompat !== "function") {
+          // 默认空实现。页面脚本之前赋值，或直接改这个函数，接到真实 beacon。
+          window.__wxadReportCssCompat = function () {}
+        }
+        try {
+          window.__wxadReportCssCompat(payload)
+        } catch (err) {
+          console.warn("[wxad-css-compat] hook error", err)
+        }
+
+        document.dispatchEvent(
+          new CustomEvent("wxad-css-compat", { detail: payload })
+        )
+      })()
     </script>
   </body>
 </html>

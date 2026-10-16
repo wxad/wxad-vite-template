@@ -21,8 +21,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* 路径相关 */
-    "baseUrl": ".",
+    /* 路径相关。TypeScript 7 移除了 baseUrl，paths 相对本文件解析。 */
     "paths": {
       "@/*": ["./src/*"]
     }

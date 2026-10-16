@@ -21,7 +21,32 @@ declare interface ImportMetaEnv {
   SHARE_IMG: string
 }
 
+declare interface WxadCssCompatOs {
+  name: "ios" | "android" | "other"
+  major: number | null
+  minor: number | null
+  patch: number | null
+}
+
+declare interface WxadCssCompatReport {
+  /** DOM 探针：当前文档是否真的应用了 @layer。null 表示探针抛错。 */
+  supportsLayer: boolean | null
+  /**
+   * CSS.supports("@layer", "") 的原始返回值。
+   * 这是属性查询，不是 at-rule 查询；当前 Chrome 即使支持 @layer 也会返回 false。
+   */
+  supportsLayerApi: boolean
+  risk: "unsupported-layer" | "cosmetic" | "ok"
+  /** XWEB/ 后面的原始版本号，不是 Chrome major。 */
+  xweb: string | null
+  chrome: number | null
+  os: WxadCssCompatOs
+  ua: string
+}
+
 declare interface Window {
+  __WXAD_CSS_COMPAT__?: WxadCssCompatReport
+  __wxadReportCssCompat?: (payload: WxadCssCompatReport) => void
   // 微信 js bridge
   WeixinJSBridge: {
     on: (name: string, cb?: (res?: IBaseObject) => void) => void
